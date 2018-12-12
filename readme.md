@@ -1,1 +1,1 @@
-React Native Redux Sample 
+React Native Redux  
