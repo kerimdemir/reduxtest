@@ -1,31 +1,27 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList } from "react-native";
 import { connect } from "react-redux";
 import { Card } from "./common";
+import BookItem from "./BookItem";
 class BookList extends Component {
   constructor(props) {
     super(props);
     state = {};
   }
 
-  renderItem({ item }) {
-    const { titleStyle, authorStyle } = styles;
-    return (
-      <Card>
-        <Text style={titleStyle}>{item.title}</Text>
-        <Text style={authorStyle}>{item.author}</Text>
-      </Card>
-    );
-  }
-
+  _renderItem = ({item}) => (
+    <BookItem
+     book={item}
+    />
+  );
   render() {
-    console.log(this.props);
+    
     const { books } = this.props;
     return (
       <View>
         <FlatList
           data={books}
-          renderItem={this.renderItem}
+          renderItem={this._renderItem}
           keyExtractor={item => item.isbn}
         />
       </View>
@@ -33,16 +29,6 @@ class BookList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  titleStyle: {
-    fontSize: 16,
-    color: "black"
-  },
-  authorStyle: {
-    fontSize: 13,
-    color: "gray"
-  }
-});
 const mapStatetoProps = state => {
   return {
     books: state.books

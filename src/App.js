@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { CreateStore, createStore } from 'redux'
 import reducers from './reducers'
 import Header from './components/common/Header'
-import BookList from './components/bookList'
+import BookList from './components/BookList'
 
 export default class App extends Component {
     render() {

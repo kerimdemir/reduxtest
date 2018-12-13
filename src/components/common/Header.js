@@ -19,7 +19,7 @@ const styles=StyleSheet.create({
         paddingTop:30,
         justifyContent:'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: 'gray',
 
     },
     headerText:{
