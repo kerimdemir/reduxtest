@@ -1,1 +1,2 @@
-React Native Redux  
+Redux 
+
