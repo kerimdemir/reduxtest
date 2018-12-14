@@ -1,17 +1,37 @@
 import React, { Component } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import { Card } from "./common";
+import * as actions from "../actions";
 
 class BookItem extends Component {
+  onPressed() {
+    // console.log("onPressed")
+     console.log(this.props)
+    const { book, selected } = this.props;
+
+    !selected 
+    ? this.props.selectBook(book) 
+    : this.props.deselectBook(book);
+  }
+
   render() {
-      
-    const { titleStyle, authorStyle } = styles;
-    //const { book } = this.props;
+    const { titleStyle, authorStyle, descriptionStyle } = styles;
+    const { book, selected } = this.props;
+    const descriptionField = selected ? (
+      <Text style={descriptionStyle}>{book.description}</Text>
+    ) : null;
+
+    //console.log(this.props)
     return (
-      <Card>
-        <Text style={titleStyle}>{this.props.book.title}</Text>
-        <Text style={authorStyle}>{this.props.book.author}</Text>
-      </Card>
+      <TouchableOpacity onPress={this.onPressed.bind(this)}>
+        <Card>
+          <Text style={titleStyle}>{book.title}</Text>
+          <Text style={authorStyle}>{book.author}</Text>
+          <Text style={authorStyle}>{book.pages}</Text>
+        </Card>
+        {descriptionField}
+      </TouchableOpacity>
     );
   }
 }
@@ -24,7 +44,25 @@ const styles = StyleSheet.create({
   authorStyle: {
     fontSize: 13,
     color: "gray"
+  },
+  descriptionStyle: {
+    margin: 10,
+    fontSize: 13,
+    color: "gray"
   }
 });
 
-export default BookItem;
+const mapStateToProps = (state, props) => {
+  //console.log("bookitem mapstatetoprops")
+  //console.log(state)
+  const selected =
+    state.selectedBook && state.selectedBook.isbn === props.book.isbn;
+  return {
+    selected
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(BookItem);

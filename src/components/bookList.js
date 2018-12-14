@@ -14,6 +14,14 @@ class BookList extends Component {
      book={item}
     />
   );
+
+  componentWillMount(){
+   //console.log("componentWillMount")
+  }
+  componentDidMount(){
+    //console.log("componentDidMount")
+  }
+
   render() {
     
     const { books } = this.props;
@@ -29,7 +37,8 @@ class BookList extends Component {
   }
 }
 
-const mapStatetoProps = state => {
+const mapStatetoProps = state => { 
+
   return {
     books: state.books
   };
